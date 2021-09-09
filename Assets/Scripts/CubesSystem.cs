@@ -25,15 +25,15 @@ public class CubesSystem : MonoBehaviour
         _activeCubes.Add(newCube);
         newCube.AddComponent<ActiveCube>();
     }
-    public void DeleteActiveCube(GameObject removableCube)
+    public void DeleteActiveCube(GameObject removableCube, float destroyTime)
     {
         _activeCubes.Remove(removableCube);
         Destroy(removableCube);
-        StartCoroutine(ReduceHeight());
+        StartCoroutine(ReduceHeight(destroyTime));
     }
-    private IEnumerator ReduceHeight()
+    private IEnumerator ReduceHeight(float destroyTime)
     {
-        yield return new WaitForSeconds(0.3f);
+        yield return new WaitForSeconds(destroyTime);
         transform.position = transform.position - new Vector3(0, 1, 0);
     }
 }

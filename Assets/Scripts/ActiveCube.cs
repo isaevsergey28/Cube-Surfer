@@ -21,10 +21,10 @@ public class ActiveCube : MonoBehaviour
                 _activeCubes.AddActiveCube(other.gameObject);
                 _isTriggered = true;
             }
-            else if (other.TryGetComponent<DestructionCube>(out DestructionCube destructionCube))
+            else if (other.TryGetComponent<IDestruction>(out IDestruction destuctionObject))
             {
-                Destroy(destructionCube);
-                _activeCubes.DeleteActiveCube(gameObject);
+                destuctionObject.DestroyComponent();
+                _activeCubes.DeleteActiveCube(gameObject, destuctionObject.GetDestroyTime());
                 _isTriggered = true;
             }
         }

@@ -2,15 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DestructionCube : MonoBehaviour, IDestruction
+public class DestructionLava : MonoBehaviour, IDestruction
 {
     public void DestroyComponent()
     {
         Destroy(this);
     }
-
     public float GetDestroyTime()
     {
-        return 0.3f;
+        return 0.1f;
     }
 }
