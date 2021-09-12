@@ -32,23 +32,11 @@ public class CameraBehaviour : MonoBehaviour
 
     public void IncreaseZCoord()
     {
-        //transform.position = Vector3.Lerp(transform.position, new Vector3(transform.position.x, transform.position.y, transform.position.z + 0.5f), Time.deltaTime * 20);
-        //StartCoroutine(ChangeZPos(new Vector3(transform.position.x, transform.position.y, transform.position.z + 0.5f)));
         transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z + 0.2f);
     }
     public void DecreaseZCoord()
     {
-        //StartCoroutine(ChangeZPos(new Vector3(transform.position.x, transform.position.y, transform.position.z - 0.5f)));
-        //transform.position = Vector3.Lerp(transform.position, new Vector3(transform.position.x, transform.position.y, transform.position.z - 0.5f), Time.deltaTime * 20);
         transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z - 0.2f);
     }
 
-    //private IEnumerator ChangeZPos(Vector3 newPos)
-    //{
-    //    while(transform.position != newPos)
-    //    {
-    //        transform.position = Vector3.MoveTowards(transform.position, newPos, Time.deltaTime);
-    //        yield return null;
-    //    }
-    //}
 }
