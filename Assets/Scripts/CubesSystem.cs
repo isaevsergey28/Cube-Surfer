@@ -1,10 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class CubesSystem : MonoBehaviour
 {
     [SerializeField] private List<GameObject> _activeCubes = new List<GameObject>();
+    [SerializeField] private UnityEvent _onRemovingLastCubeEvent;
 
     public delegate void OnChangedCubesCount();
     public event OnChangedCubesCount onAddingCubeEvent;
@@ -36,6 +38,10 @@ public class CubesSystem : MonoBehaviour
         _activeCubes.Remove(removableCube);
         Destroy(removableCube);
         StartCoroutine(ReduceHeight(destroyTime));
+        if(_activeCubes.Count == 0)
+        {
+            _onRemovingLastCubeEvent?.Invoke();
+        }
     }
     private IEnumerator ReduceHeight(float destroyTime)
     {

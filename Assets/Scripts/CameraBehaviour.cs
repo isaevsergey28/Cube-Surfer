@@ -18,6 +18,12 @@ public class CameraBehaviour : MonoBehaviour
         _cubesSystem.onRemovingCubeEvent += IncreaseZCoord;
     }
 
+    private void OnDisable()
+    {
+        _cubesSystem.onAddingCubeEvent -= DecreaseZCoord;
+        _cubesSystem.onRemovingCubeEvent -= IncreaseZCoord;
+    }
+
     private void LateUpdate()
     {
         Vector3 newCameraPos = new Vector3(transform.position.x, _target.transform.position.y + _positionYOffset, transform.position.z);
