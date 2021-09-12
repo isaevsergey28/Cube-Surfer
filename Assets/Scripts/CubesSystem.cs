@@ -6,6 +6,10 @@ public class CubesSystem : MonoBehaviour
 {
     [SerializeField] private List<GameObject> _activeCubes = new List<GameObject>();
 
+    public delegate void OnChangedCubesCount();
+    public event OnChangedCubesCount onAddingCubeEvent;
+    public event OnChangedCubesCount onRemovingCubeEvent;
+
     private void Start()
     {
         foreach(Transform child in transform)
@@ -19,6 +23,7 @@ public class CubesSystem : MonoBehaviour
 
     public void AddActiveCube(GameObject newCube)
     {
+        onAddingCubeEvent?.Invoke();
         newCube.transform.position = _activeCubes[_activeCubes.Count - 1].transform.position;
         transform.position = transform.position + new Vector3(0, 1, 0);
         newCube.transform.parent = transform;
@@ -27,6 +32,7 @@ public class CubesSystem : MonoBehaviour
     }
     public void DeleteActiveCube(GameObject removableCube, float destroyTime)
     {
+        onRemovingCubeEvent?.Invoke();
         _activeCubes.Remove(removableCube);
         Destroy(removableCube);
         StartCoroutine(ReduceHeight(destroyTime));
