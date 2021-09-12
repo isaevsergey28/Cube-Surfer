@@ -7,6 +7,7 @@ public class CubesSystem : MonoBehaviour
 {
     [SerializeField] private List<GameObject> _activeCubes = new List<GameObject>();
     [SerializeField] private UnityEvent _onRemovingLastCubeEvent;
+    [SerializeField] private VictoryEvent _onWinEvent;
 
     public delegate void OnChangedCubesCount();
     public event OnChangedCubesCount onAddingCubeEvent;
@@ -43,9 +44,21 @@ public class CubesSystem : MonoBehaviour
             _onRemovingLastCubeEvent?.Invoke();
         }
     }
+    public void CalculateFinalCount(GameObject removableCube)
+    {
+        _activeCubes.Remove(removableCube);
+        Destroy(removableCube);
+        if (_activeCubes.Count == 0)
+        {
+            _onWinEvent?.Invoke(_activeCubes.Count);
+        }
+        
+    }
     private IEnumerator ReduceHeight(float destroyTime)
     {
         yield return new WaitForSeconds(destroyTime);
         transform.position = transform.position - new Vector3(0, 1, 0);
     }
 }
+[System.Serializable]
+public class VictoryEvent : UnityEvent<int> { }

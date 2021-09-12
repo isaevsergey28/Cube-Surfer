@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FinishCube : MonoBehaviour, IDestruction
+public class FinishCube : MonoBehaviour
 {
     public void DestroyComponent()
     {
@@ -11,7 +11,7 @@ public class FinishCube : MonoBehaviour, IDestruction
 
     public float GetDestroyTime()
     {
-        return Mathf.Infinity;
+        return float.NaN;
     }
     
 }

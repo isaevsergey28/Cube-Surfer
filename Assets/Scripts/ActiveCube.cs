@@ -21,6 +21,11 @@ public class ActiveCube : MonoBehaviour
                 _activeCubes.AddActiveCube(other.gameObject);
                 _isTriggered = true;
             }
+            else if(other.TryGetComponent<FinishCube>(out FinishCube finishCube))
+            {
+                Destroy(finishCube);
+                _activeCubes.CalculateFinalCount(gameObject);
+            }
             else if (other.TryGetComponent<IDestruction>(out IDestruction destuctionObject))
             {
                 destuctionObject.DestroyComponent();
