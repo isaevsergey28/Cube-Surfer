@@ -4,23 +4,24 @@ using UnityEngine;
 
 public class GameAudioSystem : MonoBehaviour
 {
-    [SerializeField] AudioSource _gameAduio;
+    [SerializeField] AudioSource _gameAudio;
     [SerializeField] AudioSource _lossAudio;
     [SerializeField] AudioSource _victoryAudio;
 
     private void Start()
     {
-        _gameAduio.Play();
+        _gameAudio.Play();
     }
+
     public void PlayVictoryAudio()
     {
-        _gameAduio.Stop();
+        _gameAudio.Stop();
         _victoryAudio.Play();
     }
 
     public void PlayLossAudio()
     {
-        _gameAduio.Stop();
+        _gameAudio.Stop();
         _lossAudio.Play();
     }
 }

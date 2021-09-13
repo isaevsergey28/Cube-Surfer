@@ -32,12 +32,12 @@ public class CubesSystem : MonoBehaviour
         newCube.transform.parent = transform;
         _activeCubes.Add(newCube);
         newCube.AddComponent<ActiveCube>();
+        
     }
     public void DeleteActiveCube(GameObject removableCube, float destroyTime)
     {
         onRemovingCubeEvent?.Invoke();
-        _activeCubes.Remove(removableCube);
-        Destroy(removableCube);
+        DestroyCube(removableCube);
         StartCoroutine(ReduceHeight(destroyTime));
         if(_activeCubes.Count == 0)
         {
@@ -46,12 +46,16 @@ public class CubesSystem : MonoBehaviour
     }
     public void CalculateFinalCount(GameObject removableCube)
     {
-        _activeCubes.Remove(removableCube);
-        Destroy(removableCube);
+        DestroyCube(removableCube);
         if (_activeCubes.Count == 0)
         {
             _onWinEvent?.Invoke(_activeCubes.Count);
         }
+    }
+    private void DestroyCube(GameObject removableCube)
+    {
+        _activeCubes.Remove(removableCube);
+        Destroy(removableCube);
         
     }
     private IEnumerator ReduceHeight(float destroyTime)
