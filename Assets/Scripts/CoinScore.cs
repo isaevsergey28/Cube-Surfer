@@ -22,6 +22,6 @@ public class CoinScore : MonoBehaviour
     private void ChangeScore()
     {
         _score++;
-        _textScore.text = "Scroe : " + _score.ToString();
+        _textScore.text = "Score : " + _score.ToString();
     }
 }

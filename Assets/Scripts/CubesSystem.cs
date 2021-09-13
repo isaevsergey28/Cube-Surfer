@@ -13,6 +13,8 @@ public class CubesSystem : MonoBehaviour
     public event OnChangedCubesCount onAddingCubeEvent;
     public event OnChangedCubesCount onRemovingCubeEvent;
 
+    private int _finalScore = 0;
+
     private void Start()
     {
         foreach(Transform child in transform)
@@ -34,9 +36,9 @@ public class CubesSystem : MonoBehaviour
         newCube.AddComponent<ActiveCube>();
         
     }
+
     public void DeleteActiveCube(GameObject removableCube, float destroyTime)
     {
-        onRemovingCubeEvent?.Invoke();
         DestroyCube(removableCube);
         StartCoroutine(ReduceHeight(destroyTime));
         if(_activeCubes.Count == 0)
@@ -44,25 +46,37 @@ public class CubesSystem : MonoBehaviour
             _onRemovingLastCubeEvent?.Invoke();
         }
     }
-    public void CalculateFinalCount(GameObject removableCube)
+
+    public void DeleteCubeOnFinishPlatforms(GameObject removableCube)
     {
         DestroyCube(removableCube);
         if (_activeCubes.Count == 0)
         {
-            _onWinEvent?.Invoke(_activeCubes.Count);
+            InvokeAboutVictory();
+            return;
         }
+
+        _finalScore += 5;
     }
+
+    public void InvokeAboutVictory()
+    {
+        _onWinEvent?.Invoke(_finalScore);
+    }
+
     private void DestroyCube(GameObject removableCube)
     {
+        onRemovingCubeEvent?.Invoke();
         _activeCubes.Remove(removableCube);
         Destroy(removableCube);
-        
     }
+
     private IEnumerator ReduceHeight(float destroyTime)
     {
         yield return new WaitForSeconds(destroyTime);
         transform.position = transform.position - new Vector3(0, 1, 0);
     }
 }
+
 [System.Serializable]
 public class VictoryEvent : UnityEvent<int> { }
