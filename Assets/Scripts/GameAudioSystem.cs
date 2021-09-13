@@ -8,7 +8,7 @@ public class GameAudioSystem : MonoBehaviour
     [SerializeField] AudioSource _lossAudio;
     [SerializeField] AudioSource _victoryAudio;
 
-    private void Start()
+    public void StartGameMusic()
     {
         _gameAudio.Play();
     }

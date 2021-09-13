@@ -12,6 +12,16 @@ public class PlayerMovement : MonoBehaviour
     {
         _inputSystem = GetComponent<IInputSystem>();
     }
+    public void StopPlayer()
+    {
+        Destroy(transform.parent.GetComponent<SplineFollower>());
+        Destroy(this);
+    }
+
+    public void LaunchPlayer()
+    {
+       transform.parent.GetComponent<SplineFollower>().enabled = true;
+    }
 
     private void Update()
     {
@@ -26,9 +36,5 @@ public class PlayerMovement : MonoBehaviour
         transform.localPosition = tempPos;
     }
 
-    public void StopPlayer()
-    {
-        Destroy(transform.parent.GetComponent<SplineFollower>());
-        Destroy(this);
-    }
+    
 }
