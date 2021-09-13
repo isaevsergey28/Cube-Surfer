@@ -6,11 +6,24 @@ using Dreamteck.Splines;
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private float _xSpeed;
-    [SerializeField] InputSystem _inputSystem;
+    IInputSystem _inputSystem;
+
+    private void Start()
+    {
+        _inputSystem = GetComponent<IInputSystem>();
+    }
 
     private void Update()
     {
-        transform.Translate(_inputSystem.HorizontalInput * _xSpeed, 0, 0);
+        transform.Translate(_inputSystem.InputValue * _xSpeed, 0, 0);
+        RestrictMovement();
+    }
+
+    private void RestrictMovement()
+    {
+        Vector3 tempPos = transform.localPosition;
+        tempPos.x = Mathf.Clamp(tempPos.x, -2f, 2f);
+        transform.localPosition = tempPos;
     }
 
     public void StopPlayer()
