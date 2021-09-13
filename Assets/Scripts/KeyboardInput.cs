@@ -14,6 +14,9 @@ public class KeyboardInput : MonoBehaviour, IInputSystem
 
     private void Update()
     {
-        _horizontalInput = Input.GetAxis("Horizontal") * Time.deltaTime;
+        if (Input.GetKey(KeyCode.Space))
+        {
+            _horizontalInput = Input.GetAxis("Mouse X") * Time.deltaTime;
+        }
     }
 }
