@@ -29,19 +29,16 @@ public class CubesSystem : MonoBehaviour
     public void AddActiveCube(GameObject newCube)
     {
         onAddingCubeEvent?.Invoke();
-        newCube.transform.position = _activeCubes[_activeCubes.Count - 1].transform.position;
-        transform.position = transform.position + new Vector3(0, 1, 0);
-        newCube.transform.parent = transform;
+        SetDesiredValuesOnTransform(newCube);
         _activeCubes.Add(newCube);
         newCube.AddComponent<ActiveCube>();
-        
-    }
 
+    }
     public void DeleteActiveCube(GameObject removableCube, float destroyTime)
     {
         DestroyCube(removableCube);
         StartCoroutine(ReduceHeight(destroyTime));
-        if(_activeCubes.Count == 0)
+        if (_activeCubes.Count == 0)
         {
             _onRemovingLastCubeEvent?.Invoke();
         }
@@ -62,6 +59,14 @@ public class CubesSystem : MonoBehaviour
     public void InvokeAboutVictory()
     {
         _onWinEvent?.Invoke(_finalScore);
+    }
+    private void SetDesiredValuesOnTransform(GameObject newCube)
+    {
+        newCube.transform.position = _activeCubes[_activeCubes.Count - 1].transform.position;
+        transform.position = transform.position + new Vector3(0, 1, 0);
+        newCube.transform.parent = transform;
+        newCube.transform.localPosition = new Vector3(0, newCube.transform.localPosition.y, 0);
+        newCube.transform.localRotation = Quaternion.Euler(0, 0, 0);
     }
 
     private void DestroyCube(GameObject removableCube)
